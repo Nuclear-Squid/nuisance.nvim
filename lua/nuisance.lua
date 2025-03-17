@@ -7,12 +7,12 @@ PLUGIN_ENABLED = true -- default
 
 function M.enable()
     PLUGIN_ENABLED = true
-    print("reverb.nvim: Plugin enabled")
+    print("nuisance.nvim: Plugin enabled")
 end
 
 function M.disable()
     PLUGIN_ENABLED = false
-    print("reverb.nvim: Plugin disabled")
+    print("nuisance.nvim: Plugin disabled")
 end
 
 function M.toggle()
@@ -32,8 +32,8 @@ function M.setup(opts)
 end
 
 -- register enable/disable
-vim.api.nvim_create_user_command("ReverbEnable", M.enable, {})
-vim.api.nvim_create_user_command("ReverbDisable", M.disable, {})
-vim.api.nvim_create_user_command("ReverbToggle", M.toggle, {})
+vim.api.nvim_create_user_command("NuisanceEnable", M.enable, {})
+vim.api.nvim_create_user_command("NuisanceDisable", M.disable, {})
+vim.api.nvim_create_user_command("NuisanceToggle", M.toggle, {})
 
 return M;

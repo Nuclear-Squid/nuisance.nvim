@@ -1,8 +1,9 @@
-# 🔊 reverb.nvim
+# 🔊 nuisance.nvim
 
-reverb.nvim is a Neovim plugin that adds sound effects to specific autocmd events. With this plugin, you can enhance your Neovim experience by associating various sounds with different actions, providing an auditory dimension to your coding environment.
 
-https://github.com/whleucka/reverb.nvim/assets/71740767/1e3a16f0-8562-41fd-8d71-bb136ab953e3
+nuisance.nvim is a Neovim plugin that adds sound effects to specific autocmd events. Those sound effects may be randomly triggered or accompanied with a blocking wait. With this plugin, you can enhance your Neovim experience by randomly triggering annoying sounds and wasting valueble time. This plugin is incredibly stupid, and nobody was there to stop me from making it. Enjoy !
+
+https://github.com/whleucka/nuisance.nvim/assets/71740767/1e3a16f0-8562-41fd-8d71-bb136ab953e3
 
 ⭐ *Turn sound on* 
 
@@ -18,7 +19,7 @@ To get started, configure the plugin's options in your Neovim configuration. Her
 
 ```lua
 {
-  "whleucka/reverb.nvim",
+  "whleucka/nuisance.nvim",
   event = "BufReadPre",
   opts = {
     player = "paplay", -- options: paplay (default), pw-play, mpv
@@ -29,23 +30,27 @@ To get started, configure the plugin's options in your Neovim configuration. Her
       BufRead = { path = { sound_dir .. "start1.ogg", sound_dir .. "start2.ogg" }, volume = 0-100 },
       CursorMovedI = { path = sound_dir .. "click.ogg", volume = 0-100 },
       InsertLeave = { path = sound_dir .. "toggle.ogg", volume = 0-100 },
-      ExitPre = { path = sound_dir .. "exit.ogg", volume = 0-100 },
-      BufWrite = { path = sound_dir .. "save.ogg", volume = 0-100 },
+
+      -- Add a delay of 4 seconds before exiting
+      ExitPre = { path = sound_dir .. "exit.ogg", volume = 0-100, delay = 4000 },
+
+      -- Only have a 1% chance of triggering this audio clip, that way it’s a surprise !
+      BufWrite = { path = sound_dir .. "save.ogg", volume = 0-100, probability = 0.01 },
     },
   },
 }
 ```
 
-You can manage the sound settings in reverb.nvim with the following commands:
+You can manage the sound settings in nuisance.nvim with the following commands:
 
-- `:ReverbToggle` to switch sounds on or off.
-- `:ReverbEnable` to turn sounds on.
-- `:ReverbDisable` to turn sounds off.
+- `:NuisanceToggle` to switch sounds on or off.
+- `:NuisanceEnable` to turn sounds on.
+- `:NuisanceDisable` to turn sounds off.
 
 
 ## Sound Effects
 
-- Note: reverb.nvim does not include any sound files.
+- Note: nuisance.nvim does not include any sound files.
 - You can find free (CC0) interface sounds at [https://www.kenney.nl/assets/interface-sounds](https://www.kenney.nl/assets/interface-sounds)
 
 ## License

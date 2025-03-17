@@ -2,7 +2,7 @@ local utils = require("utils")
 
 local M = {}
 
-vim.api.nvim_create_augroup("reverb", {
+vim.api.nvim_create_augroup("nuisance", {
     clear = true,
 })
 
@@ -83,12 +83,12 @@ local cb = function(event, sound, player, max_sounds)
     end
 end
 
--- Options are loaded from lua/reverb.lua
+-- Options are loaded from lua/nuisance.lua
 M.load = function(opts)
     local sounds = opts.sounds
     for event, sound in pairs(sounds) do
         vim.api.nvim_create_autocmd(event, {
-            group = "reverb",
+            group = "nuisance",
             pattern = "*",
             callback = function()
                 cb(event, sound, opts.player, opts.max_sounds)
