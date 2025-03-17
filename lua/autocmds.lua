@@ -20,6 +20,13 @@ local function get_sound_path(sound)
     end
 end
 
+local function wait(time)
+    if type(time) == "nil" then
+        return
+    end
+    vim.cmd.sleep(time .. 'm')
+end
+
 local cb = function(event, sound, player, max_sounds)
     -- Don't do anything if the plugin is disabled
     if not PLUGIN_ENABLED then
@@ -28,6 +35,10 @@ local cb = function(event, sound, player, max_sounds)
 
     -- Get the path to the audio file
     local path = get_sound_path(sound)
+
+    if math.random(1, math.abs(1 / (sound.probability or 1))) ~= 1 then
+        return
+    end
 
     -- Don't play if enough processes are already playing
     local max_running_processes = max_sounds or 20
@@ -46,6 +57,8 @@ local cb = function(event, sound, player, max_sounds)
         player_function = utils.mpv_play_sound
     end
 
+    -- wait(1000)
+
     if utils.path_exists(path) then
         -- There could be other events?
         if event == "BufWrite" then
@@ -55,10 +68,12 @@ local cb = function(event, sound, player, max_sounds)
             if buf_modified then
                 RUNNING_PROCESSES = RUNNING_PROCESSES + 1
                 player_function(path, sound.volume)
+                wait(sound.delay)
             end
         else
             RUNNING_PROCESSES = RUNNING_PROCESSES + 1
             player_function(path, sound.volume)
+            wait(sound.delay)
         end
     else
         if not missing_sounds[path] then
